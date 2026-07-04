@@ -19,7 +19,7 @@ For a hedged series, the strategy borrows in the foreign currency.
 
 Annual foreign equity index returns intended to approximate the MSCI EAFE Index.
 
-#### Methodology
+##### Methodology
 
 - **2015 to Present**
 	- Uses returns from publicly traded index ETFs tracking the MSCI EAFE Index.
@@ -39,21 +39,30 @@ Annual foreign equity index returns intended to approximate the MSCI EAFE Index.
 	
 Returns on 10-year developed-country sovereign bonds.
 
-#### Methodology
+##### Methodology
 The series approximates monthly returns by using changes in bond yields.
 
 Yields are assumed to be par yields.
 Return estimates are calculated using the method outlined in Swinkels (2019).
 Additional implementation details are available on the [Portfolio Optimizer blog](https://portfoliooptimizer.io/blog/the-mathematics-of-bonds-simulating-the-returns-of-constant-maturity-government-bond-etfs).
 
-- ### `short_rates.csv`
+Computed returns are not suitable for testing momentum-based strategies.
+Monthly yields are measured as within-month averages, which mechanically smooths sharp yield changes across adjacent months.
+This creates spurious autocorrelation in monthly returns and materially overstates the returns to momentum-based trading strategies.
+
+- ### `yields.csv`
 	- **Frequency:** Monthly
-	- **`yield`:** Short-term interest rate
+	- **`yield3M`:** Short-term interest rate
+	- **`yield10Y`:** Long-term bond yield.
 	
 Short term interest rates.
 
-#### Methodology
-The series selects either the central bank policy rate or 3 month government bill yield series for each country, whichever is the longest.
+##### Methodology
+The short-term interest rate is either the central bank policy rate or 3 month government bill yield, whichever series is the longest.
+
+Long-term yields are 10-year sovereign bond par yields.
+
+Monthly yields are reported as the average daily yield over that month.
 
 ## Currencies
 
@@ -64,19 +73,21 @@ The series selects either the central bank policy rate or 3 month government bil
 
 Daily currency exchange rates and price fluctuations.
 
+##### Methodology
+
+Measurements are point-in-time estimates, recording market prices observed in the NYC FX market at 12:00 PM EST.
+This series is suitable for testing momentum strategies.
+
 ## Sources
 
 - [**World Bank Group**](https://data.worldbank.org/)
   - Market capitalization of listed domestic companies, current US dollars: `CM.MKT.LCAP.CD`
-
 - [**Organisation for Economic Co-operation and Development (OECD)**](https://www.oecd.org/en/data.html)
   - Long-term interest rates: `IRLT`
   - Short-term interest rates: `IR3TIB`, `IRSTCI`
-
 - [**Federal Reserve**](https://fred.stlouisfed.org/)
   - Spot exchange rates (monthly): `EXUSEU`, `EXUSUK`, `EXUSAL`, `EXCAUS`, `EXJPUS`, `EXSZUS`, `EXFRUS`, `EXGEUS`
   - Spot exchange rates (daily): `DEXUSEU`, `DEXJPUS`, `DEXUSUK`, `DEXCAUS`, `DEXUSAL`, `DEXSZUS`, `DEXNOUS`, `DEXSDUS`, `DEXUSNZ`
-
 - [**JST Macrohistory Database**](https://www.macrohistory.net/database/)
 	- Equity total return: `eq_tr`
 	- USD exchange rate: `xrusd`
