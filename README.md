@@ -9,6 +9,7 @@ An excess return represents the returns to a zero-cost strategy that borrows at 
 
 For an unhedged series, the strategy borrows in U.S. dollars and converts to foreign currency.
 For a hedged series, the strategy borrows in the foreign currency.
+All returns are measured in U.S. dollars.
 
 ## Equities
 
@@ -50,18 +51,19 @@ Computed returns are not suitable for testing momentum-based strategies.
 Monthly yields are measured as within-month averages, which mechanically smooths sharp yield changes across adjacent months.
 This creates spurious autocorrelation in monthly returns and materially overstates the returns to momentum-based trading strategies.
 
-- ### `yields.csv`
+- ### `yields3M.csv`
 	- **Frequency:** Monthly
 	- **`yield3M`:** Short-term interest rate
-	- **`yield10Y`:** Long-term bond yield.
 	
-Short term interest rates.
+##### Methodology
+The short-term interest rate is either the central bank policy rate or 3 month government bill yield, whichever has the most available data.
+
+- ### `yields10Y.csv`
+	- **Frequency:** Monthly
+	- **`yield10Y`:** Long-term interest rate
 
 ##### Methodology
-The short-term interest rate is either the central bank policy rate or 3 month government bill yield, whichever series is the longest.
-
 Long-term yields are 10-year sovereign bond par yields.
-
 Monthly yields are reported as the average daily yield over that month.
 
 ## Currencies
@@ -70,13 +72,20 @@ Monthly yields are reported as the average daily yield over that month.
 	- **Frequency:** Daily
 	- **`USDPerForeign`:** Value in USD of single unit of foreign currency
 	- **`priceReturn`:** USD price return of foreign currency
+	- **`fxExcessReturn`:** Excess return to borrowing in USD and lending in foreign currency.
 
-Daily currency exchange rates and price fluctuations.
+Daily currency exchange rates, price fluctuations, and excess returns.
 
 ##### Methodology
 
 Measurements are point-in-time estimates, recording market prices observed in the NYC FX market at 12:00 PM EST.
 This series is suitable for testing momentum strategies.
+
+## Macro
+
+- ### `US_CPI.csv`
+	- **Frequency:** Monthly
+	- **`CPI`:** Unadjusted Consumer Price Index for All Urban Consumers
 
 ## Sources
 
@@ -92,6 +101,8 @@ This series is suitable for testing momentum strategies.
 	- Equity total return: `eq_tr`
 	- USD exchange rate: `xrusd`
 	- Short term interest rate: `bill_rate`
+- [**Bureau of Labor Statistics**](https://www.bls.gov/)
+	- Unadjusted Consumer Price Index for All Urban Consumers: `CPIAUCNS`
 
 ## Licensing
 This dataset is made available under the Creative Commons Zero v1.0 Universal Public Domain Dedication (CC0-1.0).
