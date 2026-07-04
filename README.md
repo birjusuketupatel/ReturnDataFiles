@@ -72,7 +72,7 @@ Monthly yields are reported as the average daily yield over that month.
 	- **Frequency:** Daily
 	- **`USDPerForeign`:** Value in USD of single unit of foreign currency
 	- **`priceReturn`:** USD price return of foreign currency
-	- **`fxExcessReturn`:** Excess return to borrowing in USD and lending in foreign currency.
+	- **`fxExcessReturn`:** Excess return of foreign currency
 
 Daily currency exchange rates, price fluctuations, and excess returns.
 
@@ -81,11 +81,54 @@ Daily currency exchange rates, price fluctuations, and excess returns.
 Measurements are point-in-time estimates, recording market prices observed in the NYC FX market at 12:00 PM EST.
 This series is suitable for testing momentum strategies.
 
-## Macro
+Foreign currency excess return is the return to borrowing USD and lending foreign currency at the U.S. and foreign country risk-free rate.
+
+## Other
 
 - ### `US_CPI.csv`
 	- **Frequency:** Monthly
 	- **`CPI`:** Unadjusted Consumer Price Index for All Urban Consumers
+
+## Utility Scripts
+
+Install the Python dependencies with:
+
+```powershell
+pip install -r requirements.txt
+```
+
+- ### `transform.py`
+	- Interactive tool for creating derived return series in `custom/`.
+	- Select a source return series, then choose `Real total return` or `Nominal total return`.
+	- Nominal total return adds the U.S. 3-month risk-free return from `bonds/yields3M.csv`.
+	- Real total return converts to nominal total return, then inflation-adjusts with `US_CPI.csv`.
+	- Output file names and transformed column names reflect the selected transformation.
+
+Run interactively:
+
+```powershell
+python transform.py
+```
+
+List available source series or run directly:
+
+```powershell
+python transform.py --list
+python transform.py --input currencies/fx_daily.csv --column fxExcessReturn --transform nominal_total
+python transform.py --input equities/developed_ex_us.csv --column ex_us_hedged_er --transform real_total
+```
+
+- ### `plot.py`
+	- Interactive tool for plotting log cumulative nominal returns to screen.
+	- Supports the built-in stock, bond, and currency series only; `custom/` series are not included.
+	- Prompts let you select multiple assets, then choose `Plot`.
+	- Charts display with `matplotlib`; no PNG file is saved.
+
+Run interactively:
+
+```powershell
+python plot.py
+```
 
 ## Sources
 
