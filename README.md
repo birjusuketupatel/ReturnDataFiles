@@ -4,6 +4,8 @@
 
 This project consolidates useful stock, bond, and currency return data.
 
+50+ years of coverage for interest rates, bond returns, currency exchange rates, and more.
+
 Some returns are reported in excess of the risk-free rate.
 An excess return represents the returns to a zero-cost strategy that borrows at a short-term interest rate to buy the target asset.
 
@@ -12,7 +14,6 @@ For a hedged series, the strategy borrows in the foreign currency.
 All returns are measured in U.S. dollars.
 
 ## Equities
-
 - ### `developed_ex_us.csv`
 	- **Frequency:** Annual
     - **`ex_us_hedged_er`:** Currency hedged USD index excess return
@@ -21,8 +22,7 @@ All returns are measured in U.S. dollars.
 Annual foreign equity index returns intended to approximate the MSCI EAFE Index.
 
 ##### Methodology
-
-- **2015 to Present**
+- **2015 to 2025**
 	- Uses returns from publicly traded index ETFs tracking the MSCI EAFE Index.
 - **1975 to 2014**
 	- Uses a weighted sum of currency-adjusted excess returns for developed-country
@@ -32,7 +32,6 @@ Annual foreign equity index returns intended to approximate the MSCI EAFE Index.
 	- Uses the average country weights from the 1975 to 2014 period.
 
 ## Bonds
-
 - ### `sov_bonds.csv`
 	- **Frequency:** Monthly
 	- **`erHedgedUSD`:** Currency hedged long-term bond excess return
@@ -67,7 +66,6 @@ Long-term yields are 10-year sovereign bond par yields.
 Monthly yields are reported as the average daily yield over that month.
 
 ## Currencies
-
 - ### `fx_daily.csv`
 	- **Frequency:** Daily
 	- **`USDPerForeign`:** Value in USD of single unit of foreign currency
@@ -77,20 +75,17 @@ Monthly yields are reported as the average daily yield over that month.
 Daily currency exchange rates, price fluctuations, and excess returns.
 
 ##### Methodology
-
 Measurements are point-in-time estimates, recording market prices observed in the NYC FX market at 12:00 PM EST.
 This series is suitable for testing momentum strategies.
 
 Foreign currency excess return is the return to borrowing USD and lending foreign currency at the U.S. and foreign country risk-free rate.
 
 ## Other
-
 - ### `US_CPI.csv`
 	- **Frequency:** Monthly
 	- **`CPI`:** Unadjusted Consumer Price Index for All Urban Consumers
 
 ## Utility Scripts
-
 Install the Python dependencies with:
 
 ```powershell
@@ -130,8 +125,14 @@ Run interactively:
 python plot.py
 ```
 
-## Sources
+## Additional Resources
+High-frequency, long-history equity return data may be found at the [Ken French Data Library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html).
+For example, daily U.S. equity market excess returns are reported from 1926 to 2026.
+Returns on the Fama-French cross-sectional equity factor portfolios, regional portfolios, industry portfolios, and other useful sorts are also reported here.
 
+These returns can be easily integrated into Python workflows using the [Pandas DataReader](https://pandas-datareader.readthedocs.io/en/latest/readers/famafrench.html) library.
+
+## Sources
 - [**World Bank Group**](https://data.worldbank.org/)
   - Market capitalization of listed domestic companies, current US dollars: `CM.MKT.LCAP.CD`
 - [**Organisation for Economic Co-operation and Development (OECD)**](https://www.oecd.org/en/data.html)
